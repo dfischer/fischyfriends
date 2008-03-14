@@ -7,6 +7,30 @@ The basic idea is that there are two classes of users.
 
 Fans, and mutual fans. If two people are fans, they are mutual fans, and thereby in my definition, friends.
 
+Make sure you create a friendship model and this migration:
+create_table "friendships", :force => true do |t|
+  t.integer  "user_id",    :null => false
+  t.integer  "friend_id",  :null => false
+  t.datetime "created_at"
+  t.datetime "updated_at"
+end
+
+## friendship.rb
+
+class Friendship < ActiveRecord::Base
+  belongs_to :friendshipped_by_me,   :foreign_key => :user_id,   :class_name => "User"
+  belongs_to :friendshipped_for_me,  :foreign_key => :friend_id, :class_name => "User"
+end
+
+
+
+Also add this in your user model:
+
+## user.rb
+acts_as_fischyfriend
+
+
+
 
 Example
 =======
