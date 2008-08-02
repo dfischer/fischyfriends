@@ -57,6 +57,14 @@ module DanielFischer
       def is_friends_with?(friend)
         self.friends_by_me.include?(friend) ? true : false
       end
+      
+      def deny_friendship(friend)
+        Friendship.find(:first, :conditions => ['user_id = ? AND friend_id = ?', friend.id, self.id]).destroy
+      end
+      
+      def is_mutual_friends_with?(friend)
+        self.is_friends_with?(friend) and friend.is_friends_with?(self) ? true : false
+      end
     end
     
   end
