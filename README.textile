@@ -55,52 +55,72 @@ h1. RSpec Example
     require File.dirname(__FILE__) + '/../spec_helper'
 
     describe Friendship do
-      before(:each) do
-        @friendship = Friendship.new
-      end
+     before(:each) do
+       @friendship = Friendship.new
+     end
 
-      it "should be valid" do
-        @friendship.should be_valid
-      end
+     it "should be valid" do
+       @friendship.should be_valid
+     end
     end
 
     describe Friendship, "between two users" do
-      fixtures :users
-  
-      before(:each) do
-        @quentin = users(:quentin)
-        @bob = users(:aaron)
-        @wtf = User.create!(:login => 'a_user', :password => 'password', :password_confirmation => 'password', :email => 'poop@poop.com')
-      end
-  
-      it "should acknowledge there is a friendship between them" do
-        @bob.add_friend @quentin
-        @bob.add_friend @wtf
-        @quentin.add_friend @bob
-    
-        @bob.reload
+     fixtures :users
 
-        @bob.is_a_fan_of.should include(@wtf)
-        @bob.is_a_fan_of.should_not include(@quentin)
-   
-        @bob.pending_mutual_friends.should include(@wtf)
-        @bob.pending_mutual_friends.should_not include(@quentin)
+     before(:each) do
+       @quentin = users(:quentin)
+       @bob = users(:aaron)
+       @wtf = User.create!(:login => 'a_user', 
+                           :password => 'password', 
+                           :password_confirmation => 'password', 
+                           :email => 'poop@poop.com')
+     end
 
-        @wtf.mutual_friends.should be_empty
-        @wtf.fans_of_me.should include(@bob)
-    
-        @quentin.reload
-        @quentin.mutual_friends.should include(@bob)
-        @quentin.mutual_friends.should_not include(@wtf)
-    
-        @quentin.destroy_friendship_with @bob
-        @quentin.reload
-        @quentin.friends_by_me.should_not include(@bob)
-    
-      end
+     it "should acknowledge there is a friendship between them" do
+       @bob.add_friend @quentin
+       @bob.add_friend @wtf
+       @quentin.add_friend @bob
+
+       @bob.reload
+
+       @bob.is_a_fan_of.should include(@wtf)
+       @bob.is_a_fan_of.should_not include(@quentin)
+
+       @bob.pending_mutual_friends.should include(@wtf)
+       @bob.pending_mutual_friends.should_not include(@quentin)
+
+       @wtf.mutual_friends.should be_empty
+       @wtf.fans_of_me.should include(@bob)
+
+       @quentin.reload
+       @quentin.mutual_friends.should include(@bob)
+       @quentin.mutual_friends.should_not include(@wtf)
+
+       @quentin.destroy_friendship_with @bob
+       @quentin.reload
+       @quentin.friends_by_me.should_not include(@bob)
+
+     end
+
+     it "should be able to tell you if two people are mutual friends" do
+       @bob.add_friend @quentin
+       @bob.add_friend @wtf
+       @quentin.add_friend @bob
+       @bob.is_mutual_friends_with?(@quentin).should eql(true)
+       @bob.is_mutual_friends_with?(@wtf).should eql(false)
+     end
     end
   </code>
 </pre>
 
+h1. Changelog
+=======
+
+August 3, 2008
+ * Accepted changeset  "868bc":http://github.com/pogopuffin/fischyfriends/commit/868bc89db99fb52385028b9679eb917548a447b6 by pogopuffin
+ * Added in specs against above changeset
+
+March 14, 2008
+  * First Release
 
 Copyright (c) 2008 [Daniel Fischer] / http://www.danielfischer.com, released under the MIT license
