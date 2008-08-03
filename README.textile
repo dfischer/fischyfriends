@@ -131,6 +131,7 @@ h1. Changelog
 *  Accepted changeset  "868bc":http://github.com/pogopuffin/fischyfriends/commit/868bc89db99fb52385028b9679eb917548a447b6 by pogopuffin
 *  Added in specs against above changeset
 * Tested against Rails 2.1.0 w/ passes
+* Updated migration example with indexes, is this wise? I'm not a database wiz here.
 
 *March 14, 2008*
 * First Release
