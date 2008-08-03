@@ -11,11 +11,22 @@ Make sure you create a friendship model and this migration:
 
 <pre>
   <code>
-    create_table "friendships", :force => true do |t|
-      t.integer  "user_id",    :null => false
-      t.integer  "friend_id",  :null => false
-      t.datetime "created_at"
-      t.datetime "updated_at"
+    class CreateFriendships < ActiveRecord::Migration
+      def self.up
+        create_table :friendships do |t|
+          t.integer  "user_id",    :null => false
+          t.integer  "friend_id",  :null => false
+          t.datetime "created_at" 
+          t.datetime "updated_at"
+          t.timestamps
+        end
+        add_index :friendships, :user_id
+        add_index :friendships, :friend_id
+      end
+
+      def self.down
+        drop_table :friendships
+      end
     end
   </code>
 </pre>
