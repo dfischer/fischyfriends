@@ -116,11 +116,11 @@ h1. RSpec Example
 h1. Changelog
 =======
 
-August 3, 2008
- * Accepted changeset  "868bc":http://github.com/pogopuffin/fischyfriends/commit/868bc89db99fb52385028b9679eb917548a447b6 by pogopuffin
- * Added in specs against above changeset
+*August 3, 2008*
+*  Accepted changeset  "868bc":http://github.com/pogopuffin/fischyfriends/commit/868bc89db99fb52385028b9679eb917548a447b6 by pogopuffin
+*  Added in specs against above changeset
 
-March 14, 2008
-  * First Release
+*March 14, 2008*
+* First Release
 
 Copyright (c) 2008 [Daniel Fischer] / http://www.danielfischer.com, released under the MIT license
